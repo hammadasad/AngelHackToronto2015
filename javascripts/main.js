@@ -2,6 +2,7 @@
     var map;
     var aMap = new hashMap();
     var listOfMarkers = [];
+    vex.defaultOptions.className = 'vex-theme-wireframe';
     //Initialize google map
     function initialize() {
 
@@ -67,11 +68,16 @@
         console.log(listOfEntries);
         var csvTitles = listOfEntries[0];
         var dataSet = [];
-        for(var x = 1 ; x <= 10; x++ ) {
+        var listofAddresses = [];
+        for(var x = 1 ; x <= 20; x++ ) {
             dataSet.push(listOfEntries[x]);
             var anAddress = listOfEntries[x][5] + " " + listOfEntries[x][6] + " " + listOfEntries[x][7] + ",Toronto";
             console.log(anAddress);
-            addressToLatLng(anAddress);
+            var isContains = $.inArray(anAddress, listofAddresses);
+            if(isContains === -1) {
+                addressToLatLng(anAddress);
+                listofAddresses.push(anAddress);
+            }
         }
 
         console.log(dataSet);
@@ -97,6 +103,12 @@
                 });
                 google.maps.event.addListener(marker, 'click', function(marker) {
                     console.log("clicked on a marker");
+                    vex.dialog.alert({
+                    	    message: "Marker was clicked on",
+                            showCloseButton: false,
+                    		escapeButtonCloses: false,
+                    		overlayClosesOnClick: false,
+                    });
                 });
                 listOfMarkers.push(marker);
                 console.log("Geocoding was successful!");
@@ -140,7 +152,7 @@
     }
 
     //Get CSV from local directory
-    $.get("csv/activepermits.csv", function(data) {
+    $.get("csv/activepermits2.csv", function(data) {
         console.log("CSV file found");
         data = processData(data);
     });
