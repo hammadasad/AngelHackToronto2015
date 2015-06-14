@@ -1,0 +1,14 @@
+.customTitle{
+   font-family:'Satisfy';
+   font-style:normal;
+   color: white;
+   text-align:center;
+}
+
+#mapContainer {
+   top: 0px;
+   left: 0px;
+   height: 700px;
+   width: 100%;
+   position: relative; 
+}
